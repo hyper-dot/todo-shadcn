@@ -5,18 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TypographyH1 } from "./(components)/Typography";
 import { ImBin } from "react-icons/im";
+import { BsPencilSquare } from "react-icons/bs";
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { AlertDialogDemo } from "./(components)/AlertDialog";
+import { DialogDemo } from "./(components)/Dialoge";
 
 export default function Home() {
   const [todo, setTodo] = useState({
@@ -56,13 +48,13 @@ export default function Home() {
   }
 
   return (
-    <div className="my-4 p-4 border-2 h-screen max-w-4xl mx-auto">
+    <div className="my-4 p-4 h-screen max-w-4xl mx-auto rounded-md bg-gray-200">
       {/* Render Todos */}
-      <TypographyH1 className="text-center" text="Todo List" />
+      <TypographyH1 className="text-center my-4" text="Todo List" />
 
       <form
         onSubmit={submitForm}
-        className="max-w-xl mx-auto border-2 p-4 rounded-md"
+        className="max-w-xl mx-auto border-2 p-4 rounded-md bg-gray-100"
       >
         <div className="flex gap-4 my-4 ">
           <Input
@@ -70,7 +62,7 @@ export default function Home() {
             name="title"
             onChange={handleInputChange}
             type="text"
-            placeholder="Email"
+            placeholder="Todo"
           />
           <Button asChild>
             <button type="submit">Add</button>
@@ -93,38 +85,12 @@ export default function Home() {
         <ol>
           {todos.map((todo, index) => (
             <li className={todo.completed ? "line-through" : ""} key={index}>
-              <div className="flex flex-end items-center justify-between my-2 bg-gray-200 p-2 rounded-md ">
-                {todo.title}{" "}
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button variant="destructive" asChild>
-                      <button>
-                        <ImBin />
-                      </button>
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>
-                        Are you absolutely sure?
-                      </AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This action cannot be undone. This will delete your todo
-                        and remove your data from our servers.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction
-                        onClick={() => {
-                          handleDelete(index);
-                        }}
-                      >
-                        Continue
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
+              <div className="flex flex-end items-center justify-between my-2 bg-gray-100 p-2 rounded-md ">
+                <span>{todo.title}</span>
+                <div className="flex gap-2">
+                  <DialogDemo text={<BsPencilSquare />} />
+                  <AlertDialogDemo text={<ImBin />} action={handleDelete} />
+                </div>
               </div>
             </li>
           ))}
